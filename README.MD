@@ -12,7 +12,7 @@ We define a entrypoint, that call a Php script.
 
 The Php script loop env variables, if env name starts by ``PHP_DEFINE_`` , bingo!
 
-After, the entrypoint prepend configuration lines to php.ini.
+After, the entrypoint append (override) configuration lines to php.ini.
 
 ## Usage
 
