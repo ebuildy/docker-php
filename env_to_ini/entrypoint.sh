@@ -1,23 +1,22 @@
 #!/bin/bash
 set -e
 
-cd /opt/env_to_ini
+: ${PHP_INI_FILE_SOURCE:="/usr/local/etc/php/php.ini-production"}
+: ${PHP_INI_FILE_TARGET:="$PHP_INI_DIR/php.ini"}
 
-php env_to_ini.php
+EXTRA_PHP_INI=$(php /opt/env_to_ini/env_to_ini.php)
 
-EXTRA_PHP_INI=$(php env_to_ini.php)
+cp $PHP_INI_FILE_SOURCE $PHP_INI_FILE_TARGET
 
-cp php.ini  /usr/local/etc/php/php.ini
-
-if [ -n "${EXTRA_PHP_INI}" ]; then
-  echo "" >> /usr/local/etc/php/php.ini
-  echo "" >> /usr/local/etc/php/php.ini
-  echo "; From env variables" >> /usr/local/etc/php/php.ini
-  echo "" >> /usr/local/etc/php/php.ini
-  echo $EXTRA_PHP_INI >> /usr/local/etc/php/php.ini
+if [ -n "$EXTRA_PHP_INI" ]; then
+  echo "" >> $PHP_INI_FILE_TARGET
+  echo "" >> $PHP_INI_FILE_TARGET
+  echo "; From env variables" >> $PHP_INI_FILE_TARGET
+  echo "" >> $PHP_INI_FILE_TARGET
+  echo -e "$EXTRA_PHP_INI" >> $PHP_INI_FILE_TARGET
 
   echo "Extra Php configuration:"
-  echo $EXTRA_PHP_INI
+  echo -e "$EXTRA_PHP_INI"
 fi
 
 exec "$@"

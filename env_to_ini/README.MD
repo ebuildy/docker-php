@@ -16,6 +16,9 @@ After, the entrypoint prepend configuration lines to php.ini.
 
 ## Usage
 
+* ``PHP_INI_FILE_SOURCE`` => the source php.ini file, default is /usr/local/etc/php/php.ini-production
+* ``PHP_INI_FILE_TARGET`` => target php.ini , default is php.ini
+
 ```
-docker run -ti --rm --env PHP_DEFINE_OPCACHE_ENABLE=Off ....
+docker run -ti --rm --env PHP_DEFINE_OPCACHE_ENABLE=On PHP_DEFINE_DISPLAY_ERRORS=Off ....
 ```
